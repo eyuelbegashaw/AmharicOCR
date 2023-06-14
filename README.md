@@ -1,0 +1,2 @@
+# AmharicOCR
+AmharicOCR
