@@ -29,7 +29,7 @@ app.post("/recognize", upload.single("image"), async (req, res) => {
       url: "https://cloudlabs-text-to-speech.p.rapidapi.com/synthesize",
       headers: {
         "content-type": "application/x-www-form-urlencoded",
-        "X-RapidAPI-Key": "86678c00d8mshee0bbf6df3ff384p18dbb1jsne25d983306ac",
+        "X-RapidAPI-Key": "7bf50cb6b0msh3f831f21a66b021p131cd2jsn7e618dba4e63",
         "X-RapidAPI-Host": "cloudlabs-text-to-speech.p.rapidapi.com",
       },
       data: encodedParams,
