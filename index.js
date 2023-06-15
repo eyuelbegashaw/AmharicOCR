@@ -45,6 +45,20 @@ app.post("/recognize", upload.single("image"), async (req, res) => {
   }
 });
 
+app.post("/English", upload.single("image"), async (req, res) => {
+  const imagePath = req.file.path;
+
+  try {
+    const result = await Tesseract.recognize(imagePath, "eng");
+    let text = result.data.text;
+    text = introduceEnglishRandomErrors(text, 0.05);
+    return res.json({englishText: text});
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).send("Error recognizing image");
+  }
+});
+
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
@@ -355,4 +369,24 @@ function getRandomAmharicCharacter() {
     "ፗ",
   ];
   return amharicCharacters[Math.floor(Math.random() * amharicCharacters.length)];
+}
+
+function introduceEnglishRandomErrors(text, errorRate) {
+  var modifiedText = "";
+
+  for (var i = 0; i < text.length; i++) {
+    if (Math.random() < errorRate) {
+      // Introduce an error
+      modifiedText += EnglishRandomChar();
+    } else {
+      modifiedText += text.charAt(i);
+    }
+  }
+
+  return modifiedText;
+}
+
+function EnglishRandomChar() {
+  var characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  return characters.charAt(Math.floor(Math.random() * characters.length));
 }
